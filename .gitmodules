@@ -1,3 +1,6 @@
 [submodule "bdq_sb"]
 	path = bdq_sb
 	url = https://github.com/BarisYazici/bdq_sb.git
+[submodule "models/robotiq_arg85_description"]
+	path = models/robotiq_arg85_description
+	url = https://github.com/a-price/robotiq_arg85_description.git

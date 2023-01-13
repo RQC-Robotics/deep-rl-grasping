@@ -58,9 +58,10 @@ class RobotEnv(World):
         self.full_obs = config.get('full_observation', False)
         self._initial_height = 0.3
         self._init_ori = transformations.quaternion_from_euler(np.pi, 0., 0.)
+        # These values are hardcoded. A new gripper requires new values.
         self.main_joints = [0, 1, 2, 3] #FIXME make it better
-        self._left_finger_id = 7
-        self._right_finger_id = 9
+        self._left_finger_id = 0  # 7 -- original value
+        self._right_finger_id = 1  # 9 -- original value
         self._fingers = [self._left_finger_id, self._right_finger_id]
 
         self._model = None
@@ -238,7 +239,7 @@ class RobotEnv(World):
         target_pos[1] *= -1
         target_pos[2] = -1 * (target_pos[2] - self._initial_height)
 
-        # _, _, yaw = transform_utils.euler_from_quaternion(target_orn)
+        # _, _, ya00w = transform_utils.euler_from_quaternion(target_orn)
         # yaw *= -1
         yaw = target_orn
         comp_pos = np.r_[target_pos, yaw]
