@@ -1,6 +1,7 @@
 # Robot parameters
 robot:
-  model_path: models/gripper/wsg50_one_motor_gripper_new.sdf
+  # model_path: models/gripper/wsg50_one_motor_gripper_new.sdf
+  model_path: robotiq_arg85_description/robots/robotiq_arg85_description.URDF
   max_translation: 0.01
   max_yaw_rotation: 0.15
   max_force: 100
@@ -27,7 +28,6 @@ sensor:
   encoder_dir: encoder_files/
   visualize: False
 
-
 # Camera sensor parameters
 # sensor:
 #   camera_info: calib/pico_flexx_cropped.yaml
@@ -44,7 +44,6 @@ reward:
   grasp_reward: 1.
   delta_z_scale: 1000.
   time_penalty: 100
-
 
 # Workspace curriculum parameters
 curriculum:

@@ -59,8 +59,8 @@ class RobotEnv(World):
         self._initial_height = 0.3
         self._init_ori = transformations.quaternion_from_euler(np.pi, 0., 0.)
         self.main_joints = [0, 1, 2, 3] #FIXME make it better
-        self._left_finger_id = 7
-        self._right_finger_id = 9
+        self._left_finger_id = 4
+        self._right_finger_id = 10
         self._fingers = [self._left_finger_id, self._right_finger_id]
 
         self._model = None

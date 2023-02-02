@@ -12,7 +12,8 @@ scene:
 
 # Robot parameters
 robot:
-  model_path: models/gripper/wsg50_one_motor_gripper_new.sdf
+  # model_path: models/gripper/wsg50_one_motor_gripper_new.sdf
+  model_path: robotiq_arg85_description/robots/robotiq_arg85_description.URDF
   max_translation: 0.03 # 0.01
   max_yaw_rotation: 0.15 # 0.15
   discrete: True

@@ -87,7 +87,7 @@ def test_reward(env):
         assert reward ==  0
     else:
         assert reward ==  -11
- 
+
 @pytest.mark.parametrize("env", ENVS_LIST)
 def test_position(env):
     env.reset()
