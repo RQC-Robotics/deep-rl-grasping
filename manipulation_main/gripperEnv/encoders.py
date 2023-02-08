@@ -8,8 +8,6 @@ from keras.models import Model
 from keras.optimizers import Adam
 from keras.utils import plot_model
 from keras.backend.tensorflow_backend import get_session, set_session
-# TF 2.0 uses another paths
-# from keras.backend import get_session, set_session
 
 import tensorflow as tf
 
