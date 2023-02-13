@@ -60,8 +60,8 @@ class RobotEnv(World):
         self._init_ori = transformations.quaternion_from_euler(np.pi, 0., 0.)
         # These values are hardcoded. A new gripper requires new values.
         self.main_joints = [0, 1, 2, 3] #FIXME make it better
-        self._left_finger_id = 0  # 7 -- original value
-        self._right_finger_id = 1  # 9 -- original value
+        self._left_finger_id = 4  # 7 -- original value
+        self._right_finger_id = 9  # 9 -- original value
         self._fingers = [self._left_finger_id, self._right_finger_id]
 
         self._model = None
@@ -264,7 +264,8 @@ class RobotEnv(World):
 
     def close_gripper(self):
         self.gripper_close = True
-        self._target_joint_pos = 0.05
+        self._target_joint_pos = 0.5
+        # self._target_joint_pos = 0.05
         self._left_finger.set_position(self._target_joint_pos)
         self._right_finger.set_position(self._target_joint_pos)
 
