@@ -136,6 +136,31 @@ class RobotEnv(World):
         self._left_finger = self._model.joints[self._left_finger_id]
         self._right_finger = self._model.joints[self._right_finger_id]
 
+    # Adding Pybullet constraints to bypass the limitations of the <mimic> tag    
+        for i in range(p.getNumJoints(self.robot_id)):
+            p.setJointMotorControl2(self.robot_id,
+                                    jointIndex=i,
+                                    controlMode=p.VELOCITY_CONTROL,
+                                    targetVelocity=0,
+                                    force=0)
+        
+        FINGER_JOINT = 4
+        gear_multipliers = {6: -1, 8: 1, 9: 1, 11: -1, 13: 1}
+        
+        for joint_id, mult in gear_multipliers.items():
+            c = p.createConstraint(parentBodyUniqueId=self.robot_id,
+                                   parentLinkIndex=FINGER_JOINT,
+                                   childBodyUniqueId=self.robot_id,
+                                   childLinkIndex=joint_id,
+                                   jointType=p.JOINT_GEAR,
+                                   jointAxis=[0, 1, 0],
+                                   parentFramePosition=[0, 0, 0],
+                                   childFramePosition=[0, 0, 0])
+            p.changeConstraint(c, 
+                               gearRatio=-mult, 
+                               maxForce=100, 
+                               erp=1)            
+
     def _trigger_event(self, event, *event_args):
         for fn, args, kwargs in self._callbacks[event]:
             fn(*(event_args + args), **kwargs)
@@ -264,11 +289,10 @@ class RobotEnv(World):
 
     def close_gripper(self):
         self.gripper_close = True
-        self._target_joint_pos = 0.5
+        self._target_joint_pos = 1
         # self._target_joint_pos = 0.05
         self._left_finger.set_position(self._target_joint_pos)
         self._right_finger.set_position(self._target_joint_pos)
-
         self.run(0.2)
 
     def open_gripper(self):
@@ -276,8 +300,8 @@ class RobotEnv(World):
         self._target_joint_pos = 0.0
         self._left_finger.set_position(self._target_joint_pos)
         self._right_finger.set_position(self._target_joint_pos)
-
-        self.run(0.2)
+        self.run(0.01)
+        # self.run(0.2)
 
     def _enforce_constraints(self, position):
         """Enforce constraints on the next robot movement."""

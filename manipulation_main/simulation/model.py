@@ -14,10 +14,12 @@ class Model(object):
         else:
             model_id = self._physics_client.loadURDF(
                 path, start_pos, start_orn,
-                globalScaling=scaling, useFixedBase=static)        
+                globalScaling=scaling, useFixedBase=static)
+
         self.model_id = model_id
         # self._get_limits(self.model_id)
         joints, links = {}, {}
+        
         for i in range(self._physics_client.getNumJoints(self.model_id)):
             joint_info = self._physics_client.getJointInfo(self.model_id, i)
             # joint_name = joint_info[1].decode('utf8')
@@ -26,14 +28,14 @@ class Model(object):
             joints[i] = _Joint(self._physics_client, self.model_id, i, joint_limits)
             # link_name = joint_info[12].decode('utf8')
             links[i] = _Link(self._physics_client, self.model_id, i)
-        self.joints, self.links = joints, links
 
+        self.joints, self.links = joints, links
         return model_id
 
     def get_joints(self):
         for i in range(self._physics_client.getNumJoints(self.model_id)):
-            self.joints[i] = self._physics_client.getJointInfo(self.model_id, i)
-
+            self.joints[i] = self._physics_client.getJointInfo(self.model_id, i)            
+            
     def get_pose(self):
         """Return the pose of the model base."""
         pos, orn, _, _, _, _ = self._physics_client.getLinkState(self.model_id, 3)
@@ -41,6 +43,7 @@ class Model(object):
     
     def getBase(self):
         return self._physics_client.getBasePositionAndOrientation(self.model_id)
+
 
 class _Link(object):
     def __init__(self, physics_client, model_id, link_id):
