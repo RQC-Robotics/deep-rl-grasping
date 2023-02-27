@@ -262,7 +262,7 @@ class RobotEnv(World):
         # target_pos = self._enforce_constraints(target_pos)
 
         target_pos[1] *= -1
-        target_pos[2] = -1 * (target_pos[2] - self._initial_height)
+        # target_pos[2] = -1 * (target_pos[2] - self._initial_height)
 
         # _, _, ya00w = transform_utils.euler_from_quaternion(target_orn)
         # yaw *= -1
